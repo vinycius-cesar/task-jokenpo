@@ -1,0 +1,65 @@
+openapi: 3.0.0
+info:
+  title: API de Usuários
+  version: 1.0.0
+paths:
+  /usuarios:
+    get:
+      summary: Lista todos os usuários
+      operationId: listarUsuarios
+      responses:
+        '200':
+          description: Lista de usuários
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UsuarioDTO'
+
+    post:
+      summary: Cria um novo usuário
+      operationId: criarUsuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsuarioDTO'
+      responses:
+        '201':
+          description: Usuário criado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsuarioDTO'
+
+  /usuarios/{id}:
+    get:
+      summary: Busca um usuário por ID
+      operationId: buscarUsuarioPorId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Usuário encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsuarioDTO'
+
+components:
+  schemas:
+    UsuarioDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        email:
+          type: string

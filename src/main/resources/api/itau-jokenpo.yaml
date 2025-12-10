@@ -1,0 +1,50 @@
+openapi: 3.0.0
+info:
+  title: API de Jokenpo
+  version: 1.0.0
+  description: API para jogar Jokenpo (Pedra, Papel, Tesoura)
+
+paths:
+  /play:
+    post:
+      summary: Inicia uma jogada
+      operationId: playGame
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JogadaDTO'
+      responses:
+        '200':
+          description: Resultado da jogada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultadoDTO'
+
+components:
+  schemas:
+    JogadaDTO:
+      type: object
+      required:
+        - jogadaOpcao
+      properties:
+        jogadaOpcao:
+          type: string
+          description: Opção de jogada
+          enum: [PEDRA, PAPEL, TESOURA]
+
+    ResultadoDTO:
+      type: object
+      properties:
+        jogadaUsuario:
+          type: string
+          description: Jogada feita pelo usuário
+        jogadaComputador:
+          type: string
+          description: Jogada feita pelo computador
+        resultado:
+          type: string
+          description: Resultado da partida
+
